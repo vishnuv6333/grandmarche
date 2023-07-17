@@ -37,8 +37,7 @@ class _ResturantScreenState extends State<ResturantScreen> {
               builder: (context, lriverProvider, child) {
                 lat=lriverProvider.latittude.toString();
                 long=lriverProvider.logittude.toString();
-                print("agfdygsadfgufdsag");
-                print(lat);
+             
 
             return lriverProvider.load
                 ? const Center(child: CircularProgressIndicator())
@@ -222,7 +221,7 @@ class _ResturantScreenState extends State<ResturantScreen> {
             onPressed: () async{
              
             
-                print("hauu");
+              
                 final url =
                     'https://www.google.com/maps?q=$lat,$long';
                

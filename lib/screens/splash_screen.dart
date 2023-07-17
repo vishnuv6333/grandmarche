@@ -14,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 2), () async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var email = prefs.getString("email");
-      print(email);
+  
       if (email!=null) {
         Navigator.pushReplacementNamed(context, '/home');
       } else {

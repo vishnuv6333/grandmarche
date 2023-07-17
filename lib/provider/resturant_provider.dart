@@ -30,10 +30,8 @@ class ResurantProvider extends ChangeNotifier {
       _isLoading = true;
 
       Response response = await http.get(Uri.parse(BaseUrl().baseUrl));
-      print(response.body);
       if (response.statusCode == 200) {
         resturant = resturantFromJson(response.body);
-        print(resturant);
         _isLoading = false;
         notifyListeners();
       } else {
@@ -56,11 +54,10 @@ class ResurantProvider extends ChangeNotifier {
       address=re['address'];
       review=re['reviews'];
       operating_hours=re["operating_hours"];
-      print("asdgfhfgsjkgfdsajhgjhgds");
+   
       print(re['latlng']['lat']);
       latittude=re['latlng']['lat'].toString();
       logittude=re['latlng']['lng'].toString();
-      print(logittude);
       
      
 
