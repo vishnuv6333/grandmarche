@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../model/model.dart';
 import '../provider/resturant_provider.dart';
@@ -25,13 +27,19 @@ class _ResturantScreenState extends State<ResturantScreen> {
   Widget build(BuildContext context) {
     final resurantProvider =
         Provider.of<ResurantProvider>(context, listen: false);
+        late String lat;
+        late String long;
+    
     resurantProvider.getDetails();
     return SafeArea(
       child: Scaffold(
           body: Consumer<ResurantProvider>(
               builder: (context, lriverProvider, child) {
-                
-                
+                lat=lriverProvider.latittude.toString();
+                long=lriverProvider.logittude.toString();
+                print("agfdygsadfgufdsag");
+                print(lat);
+
             return lriverProvider.load
                 ? const Center(child: CircularProgressIndicator())
                 : SingleChildScrollView(
@@ -40,8 +48,7 @@ class _ResturantScreenState extends State<ResturantScreen> {
                       children: [
                         Stack(
                           children: [
-                            Image.network(
-                               lriverProvider.Image.toString()),
+                            Image.network(lriverProvider.Image.toString()),
                             const Positioned(
                                 top: 12,
                                 left: 12,
@@ -49,7 +56,7 @@ class _ResturantScreenState extends State<ResturantScreen> {
                                   Icons.arrow_back_ios_new,
                                   size: 28,
                                 )),
-                             Positioned(
+                            Positioned(
                                 bottom: 9,
                                 left: 12,
                                 child: Text(
@@ -63,7 +70,7 @@ class _ResturantScreenState extends State<ResturantScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                             Padding(
+                            Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 lriverProvider.name.toString(),
@@ -99,7 +106,7 @@ class _ResturantScreenState extends State<ResturantScreen> {
                             )
                           ],
                         ),
-                         Padding(
+                        Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
                             children: [
@@ -108,7 +115,7 @@ class _ResturantScreenState extends State<ResturantScreen> {
                             ],
                           ),
                         ),
-                         Padding(
+                        Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
                             children: [
@@ -117,7 +124,7 @@ class _ResturantScreenState extends State<ResturantScreen> {
                             ],
                           ),
                         ),
-                         Padding(
+                        Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Row(
                             children: [
@@ -140,7 +147,8 @@ class _ResturantScreenState extends State<ResturantScreen> {
                             itemCount: lriverProvider.review!.length,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
-                            var  review=lriverProvider.review![index];
+                              var review = lriverProvider.review![index];
+                             
                               return Container(
                                 child: Column(
                                   children: [
@@ -154,7 +162,7 @@ class _ResturantScreenState extends State<ResturantScreen> {
                                                 color: Colors.green,
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(8))),
-                                            child:  Row(
+                                            child: Row(
                                               children: [
                                                 Text(
                                                   " ${review['rating']} ",
@@ -176,7 +184,7 @@ class _ResturantScreenState extends State<ResturantScreen> {
                                         Text(review['name'])
                                       ],
                                     ),
-                                     Padding(
+                                    Padding(
                                       padding: EdgeInsets.all(8.0),
                                       child: Text(
                                         review['comments'],
@@ -185,7 +193,7 @@ class _ResturantScreenState extends State<ResturantScreen> {
                                         textAlign: TextAlign.justify,
                                       ),
                                     ),
-                                     Row(
+                                    Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
@@ -211,7 +219,17 @@ class _ResturantScreenState extends State<ResturantScreen> {
                 borderRadius: BorderRadius.circular(
                     28.0)), // Customize the shape if needed
 
-            onPressed: () {},
+            onPressed: () async{
+             
+            
+                print("hauu");
+                final url =
+                    'https://www.google.com/maps?q=$lat,$long';
+               
+                  await launchUrlString(url);
+               
+              
+            },
             child: const Column(
               children: [
                 Icon(

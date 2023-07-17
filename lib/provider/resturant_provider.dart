@@ -21,6 +21,8 @@ class ResurantProvider extends ChangeNotifier {
   String? address;
   String? cuisine_type;
   List? review;
+  String? latittude;
+  String? logittude;
   Map<String,dynamic>? operating_hours;
 
   getResturantList() async {
@@ -54,6 +56,11 @@ class ResurantProvider extends ChangeNotifier {
       address=re['address'];
       review=re['reviews'];
       operating_hours=re["operating_hours"];
+      print("asdgfhfgsjkgfdsajhgjhgds");
+      print(re['latlng']['lat']);
+      latittude=re['latlng']['lat'].toString();
+      logittude=re['latlng']['lng'].toString();
+      print(logittude);
       
      
 
